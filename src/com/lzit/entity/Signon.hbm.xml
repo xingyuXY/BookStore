@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<class name="com.lzit.entity.Signon">
+<id name="username"></id>
+<property name="password"></property>
+<property name="role"></property>
+<set name="cart" cascade="all">
+<key column="username"></key>
+<one-to-many class="com.lzit.entity.Cart"></one-to-many>
+</set>
+<set name="address" cascade="all">
+<key column="username"></key>
+<one-to-many class="com.lzit.entity.Address"></one-to-many>
+</set>
+<set name="orders" cascade="all">
+<key column="username"></key>
+<one-to-many class="com.lzit.entity.Orders"></one-to-many>
+</set>
+<set name="bookrecord" cascade="all">
+<key column="username"></key>
+<one-to-many class="com.lzit.entity.Bookrecord"></one-to-many>
+</set>
+</class>
+</hibernate-mapping>    

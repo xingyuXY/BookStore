@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xmlns:tx="http://www.springframework.org/schema/tx" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+<!-- 整合Hibernate-->
+
+<!--1.配置数据源  -->
+<bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
+<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+<property name="url" value="jdbc:mysql://localhost:3306/BookStore"></property>
+<property name="username" value="root"></property>
+<property name="password" value="root"></property>
+</bean>
+
+<!--2.配置sessionFactory  -->
+<bean id="sessionfactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+<property name="dataSource" ref="datasource"></property><!-- 把配置好的datasource进行注入 -->
+<property name="hibernateProperties"><!-- 配置其他属性 -->
+<props>
+<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+<prop key="hibernate.show_sql">true</prop>
+</props>
+</property>
+
+<!-- 3.加载映射文件 -->
+<property name="mappingResources">
+<list>
+<value>com/lzit/entity/Signon.hbm.xml</value>
+<value>com/lzit/entity/Category.hbm.xml</value>
+<value>com/lzit/entity/Book.hbm.xml</value>
+<value>com/lzit/entity/Cart.hbm.xml</value>
+<value>com/lzit/entity/Orders.hbm.xml</value>
+<value>com/lzit/entity/Orderitem.hbm.xml</value>
+<value>com/lzit/entity/Address.hbm.xml</value>
+<value>com/lzit/entity/Bookrecord.hbm.xml</value>
+
+</list>
+</property>
+</bean>
+
+<!-- 测试 -->
+
+
+<bean id="signondao" class="com.lzit.daoImpl.SignonDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="signonservice" class="com.lzit.serviceImpl.SignonServiceImpl">
+<property name="sdo" ref="signondao"></property>
+</bean>
+<bean id="loginaction" class="com.lzit.action.LoginAction">
+<property name="sse" ref="signonservice"></property>
+</bean>
+<bean id="signonaction" class="com.lzit.action.SignonAdminAction">
+<property name="sse" ref="signonservice"></property>
+</bean>
+
+
+<bean id="bookdao" class="com.lzit.daoImpl.BookDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="bookservice" class="com.lzit.serviceImpl.BookServiceImpl">
+<property name="bdo" ref="bookdao"></property>
+</bean>
+<bean id="bookadminaction" class="com.lzit.action.BookAdminAction">
+<property name="bse" ref="bookservice"></property>
+<property name="cse" ref="categoryservice"></property>
+</bean>
+<bean id="bookuseraction" class="com.lzit.action.BookUserAction">
+<property name="bse" ref="bookservice"></property>
+</bean>
+
+
+
+<bean id="categorydao" class="com.lzit.daoImpl.CategoryDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="categoryservice" class="com.lzit.serviceImpl.CategoryServiceImpl">
+<property name="cdo" ref="categorydao"></property>
+</bean>
+<bean id="categoryaction" class="com.lzit.action.CategoryAction">
+<property name="cse" ref="categoryservice"></property>
+</bean>
+
+
+<bean id="cartdao" class="com.lzit.daoImpl.CartDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="cartservice" class="com.lzit.serviceImpl.CartServiceImpl">
+<property name="ccdo" ref="cartdao"></property>
+</bean>
+<bean id="cartaction" class="com.lzit.action.CartAction">
+<property name="ccse" ref="cartservice"></property>
+</bean>
+
+
+<bean id="addressdao" class="com.lzit.daoImpl.AddressDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="addressservice" class="com.lzit.serviceImpl.AddressServiceImpl">
+<property name="ado" ref="addressdao"></property>
+</bean>
+<bean id="addressaction" class="com.lzit.action.AddressAction">
+<property name="ase" ref="addressservice"></property>
+</bean>
+
+<bean id="ordersdao" class="com.lzit.daoImpl.OrdersDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="ordersservice" class="com.lzit.serviceImpl.OrdersServiceImpl">
+<property name="odo" ref="ordersdao"></property>
+</bean>
+<bean id="ordersaction" class="com.lzit.action.OrdersAction">
+<property name="ose" ref="ordersservice"></property>
+<property name="oise" ref="orderitemservice"></property>
+<property name="ccse" ref="cartservice"></property>
+<property name="bse" ref="bookservice"></property>
+</bean>
+
+<bean id="orderitemdao" class="com.lzit.daoImpl.OrderitemDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="orderitemservice" class="com.lzit.serviceImpl.OrderitemServiceImpl">
+<property name="oido" ref="orderitemdao"></property>
+</bean>
+
+<bean id="bookrecorddao" class="com.lzit.daoImpl.BookrecordDaoImpl">
+<property name="sessionFactory" ref="sessionfactory"></property>
+</bean>
+<bean id="bookrecordservice" class="com.lzit.serviceImpl.BookrecordServiceImpl">
+<property name="brdo" ref="bookrecorddao"></property>
+</bean>
+<bean id="bookrecordaction" class="com.lzit.action.BookrecordAction">
+<property name="brde" ref="bookrecordservice"></property>
+</bean>
+
+
+</beans>

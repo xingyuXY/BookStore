@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+	
+<hibernate-configuration>
+<session-factory name="myhibernate">
+<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/BookStore</property>
+<property name="hibernate.connection.username">root</property>
+<property name="hibernate.connection.password">root</property>
+<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+<property name="hibernate.show-sql">true</property>
+
+
+<mapping resource="com/Lzit/entity/Signon.hbm.xml"/>
+<mapping resource="com/lzit/entity/Category.hbm.xml"/>
+<mapping resource="com/lzit/entity/Book.hbm.xml"/>
+<mapping resource="com/lzit/entity/Cart.hbm.xml"/>
+<mapping resource="com/lzit/entity/Orders.hbm.xml"/>
+<mapping resource="com/lzit/entity/Orderitem.hbm.xml"/>
+<mapping resource="com/lzit/entity/Address.hbm.xml"/>
+<mapping resource="com/lzit/entity/Bookrecord.hbm.xml"/>
+</session-factory>
+</hibernate-configuration>	
+	
+	

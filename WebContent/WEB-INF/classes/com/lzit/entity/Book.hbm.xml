@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<class name="com.lzit.entity.Book">
+<id name="bookid">
+<generator class="native"></generator>
+</id>
+
+<property name="bookname"></property>
+<property name="author"></property>
+<property name="price"></property>
+<property name="inventory"></property>
+<property name="sellcount"></property>
+<property name="picture"></property>
+<property name="publishdate"></property>
+<property name="secondhand"></property>
+<property name="descn1"></property>
+<property name="descn2"></property>
+<property name="descn3"></property>
+<property name="descn4"></property>
+
+<many-to-one name="category" column="catid" lazy="false"></many-to-one>
+
+<set name="cart" cascade="all">
+<key column="bookid"></key>
+<one-to-many class="com.lzit.entity.Cart"></one-to-many>
+</set>
+
+
+<set name="orderitem" cascade="all">
+<key column="bookid"></key>
+<one-to-many class="com.lzit.entity.Orderitem"></one-to-many>
+</set>
+
+
+</class>
+</hibernate-mapping>    

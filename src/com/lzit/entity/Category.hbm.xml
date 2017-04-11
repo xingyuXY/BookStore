@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<class name="com.lzit.entity.Category">
+<id name="catid">
+<generator class="native"></generator>
+</id>
+
+<property name="category"></property>
+
+<set name="book" cascade="all">
+<key column="catid"></key>
+<one-to-many class="com.lzit.entity.Book"></one-to-many>
+</set>
+
+</class>
+</hibernate-mapping>    

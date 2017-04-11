@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<class name="com.lzit.entity.Bookrecord">
+<id name="recordid">
+<generator class="native"></generator>
+</id>
+
+<property name="bookrecordname"></property>
+<property name="bookrecordauthor"></property>
+<property name="bookrecorddescn"></property>
+<property name="recorddate"></property>
+
+<many-to-one name="signon" column="username"></many-to-one>
+
+</class>
+</hibernate-mapping>    
